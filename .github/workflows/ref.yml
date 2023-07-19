@@ -16,4 +16,4 @@ jobs:
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
         with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }} # head SHA if PR, else fallback to push SHA
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
