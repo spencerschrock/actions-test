@@ -1,0 +1,16 @@
+name: scdiff PR evaluation
+on:
+  issue_comment:
+    types: [created, edited, deleted]
+
+permissions: read-all
+
+jobs:
+  event-data:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
