@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: "github-actions"
     directories:
       - "/docker1"
-      - "docker2"
+      - "/docker2"
     schedule:
       interval: "daily"
     groups:
