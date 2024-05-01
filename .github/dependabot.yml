@@ -6,4 +6,3 @@ updates:
       - "/docker2"
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 1
