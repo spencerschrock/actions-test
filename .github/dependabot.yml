@@ -1,12 +1,9 @@
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
+  - package-ecosystem: "docker"
     directories:
       - "/docker1"
       - "/docker2"
     schedule:
       interval: "daily"
-    groups:
-      docker-images:
-        patterns:
-          - "*"
+    open-pull-requests-limit: 1
