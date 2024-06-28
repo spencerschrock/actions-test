@@ -3,6 +3,5 @@ updates:
   - package-ecosystem: "docker"
     directories:
       - "/docker1"
-      - "/docker2"
     schedule:
       interval: "daily"
