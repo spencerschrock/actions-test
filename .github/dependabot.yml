@@ -6,3 +6,7 @@ updates:
       - "/docker2"
     schedule:
       interval: "daily"
+    groups:
+      docker:
+        patterns:
+          - "*"
