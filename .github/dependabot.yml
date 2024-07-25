@@ -6,10 +6,10 @@ updates:
       - "/docker2"
     schedule:
       interval: "daily"
-    groups:
-      golang:
-        patterns:
-          - "golang"
-      distroless:
-        patterns:
-          - "distroless/base"
+    # groups:
+    #   golang:
+    #     patterns:
+    #       - "golang"
+    #   distroless:
+    #     patterns:
+    #       - "distroless/base"
