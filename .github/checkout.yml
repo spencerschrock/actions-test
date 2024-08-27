@@ -1,0 +1,18 @@
+on: push
+
+permissions: {}
+
+jobs:
+  noperms:
+    name: test checkout without contents
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+
+  withperms:
+    name: test checkout with contents
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
