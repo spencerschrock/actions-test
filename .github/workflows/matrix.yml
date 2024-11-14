@@ -1,0 +1,22 @@
+name: matrix join
+on:
+  workflow_dispatch:
+
+jobs:
+  matrix-test:
+    name: matrix-test
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        results_format: [sarif, json]
+        publish_results: [false, true]
+        token: [ GITHUB_TOKEN, SCORECARD_READ_TOKEN ]
+        include:
+          - results_format: sarif
+            upload_result: true
+          - results_format: json
+            upload_result: false
+    steps:
+      - run: echo ${{ join(matrix.*, ' - ') }}
