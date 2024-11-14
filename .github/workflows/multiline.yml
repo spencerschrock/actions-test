@@ -1,0 +1,19 @@
+name: multiline
+on:
+  workflow_dispatch:
+
+jobs:
+  multiline:
+    name: multiline
+    runs-on: ubuntu-latest
+    steps:
+      - name: make comment
+        env:
+          COMMENT_BODY: |
+            Repo: https://github.com/${{ github.repository }}/tree/${{ github.ref_name }}
+            Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            Workflow name: ${{ github.workflow }}
+            Workflow file: https://github.com/${{ github.repository }}/tree/main/.github/workflows/scorecards-head.yml
+            Trigger: ${{ github.event_name }}
+            Branch: ${{ github.ref_name }}
+        run: echo "$COMMENT_BODY"
