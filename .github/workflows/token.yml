@@ -7,7 +7,5 @@ permissions: {}
 jobs:
   token:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.TOKEN }}
     steps:
       - run: if [ -v GITHUB_TOKEN ]; then echo "set"; else echo "unset"; fi
