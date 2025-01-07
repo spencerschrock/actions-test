@@ -10,4 +10,4 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.TOKEN }}
     steps:
-      - run: echo $GITHUB_TOKEN
+      - run: if [ -v GITHUB_TOKEN ]; then echo "set"; else echo "unset"; fi
