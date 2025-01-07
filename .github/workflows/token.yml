@@ -2,7 +2,7 @@ name: token
 on:
   workflow_dispatch:
 
-permissions: none
+permissions: {}
 
 jobs:
   token:
