@@ -2,8 +2,12 @@ name: token
 on:
   workflow_dispatch:
 
+permissions: none
+
 jobs:
   token:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.TOKEN }}
     steps:
       - run: echo $GITHUB_TOKEN
