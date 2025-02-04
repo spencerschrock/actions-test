@@ -8,4 +8,5 @@ jobs:
   token:
     runs-on: ubuntu-latest
     steps:
-      - run: curl -sS -f -I -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com
+      - run: |
+          curl -sS -f -I -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com
