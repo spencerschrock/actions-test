@@ -8,4 +8,4 @@ jobs:
   token:
     runs-on: ubuntu-latest
     steps:
-      - run: if [ -v GITHUB_TOKEN ]; then echo "set"; else echo "unset"; fi
+      - run: curl -sS -f -I -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com
