@@ -13,8 +13,11 @@ on:
 jobs:
   foo:
     runs-on: ubuntu-latest
+    env:
+      DEFAULT_BRANCH: ${{ github.repository.default_branch }}
+      REF: ${{ github.ref_name }}
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - run: echo "::error ::test"
+      - run: echo $DEFAULT_BRANCH $REF
