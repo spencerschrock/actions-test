@@ -1,0 +1,11 @@
+name: disk
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  disk:
+    runs-on: ubuntu-latest
+    steps:
+      - run: df
