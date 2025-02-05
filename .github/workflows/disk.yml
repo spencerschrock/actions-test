@@ -8,4 +8,4 @@ jobs:
   disk:
     runs-on: ubuntu-latest
     steps:
-      - run: df
+      - run: df -h
