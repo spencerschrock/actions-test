@@ -39,6 +39,7 @@ jobs:
         with:
           results_file: results.json
           results_format: json
+          file_mode: git
 
           # Public repositories:
           #   - Publish results to OpenSSF REST API for easy access by consumers
