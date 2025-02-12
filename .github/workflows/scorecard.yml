@@ -37,8 +37,8 @@ jobs:
       - name: "Run analysis"
         uses: ossf/scorecard-action@a4a6f9d6e9eba2684f2ccec3f3b371d244a1f2f8 # github.com/ossf/scorecard-action/pull/1509
         with:
-          results_file: results.sarif
-          results_format: sarif
+          results_file: results.json
+          results_format: json
 
           # Public repositories:
           #   - Publish results to OpenSSF REST API for easy access by consumers
@@ -59,8 +59,8 @@ jobs:
       - name: "Upload artifact"
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
-          name: SARIF file
-          path: results.sarif
+          name: JSON file
+          path: results.json
           retention-days: 5
 
       # Upload the results to GitHub's code scanning dashboard (optional).
