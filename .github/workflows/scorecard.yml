@@ -35,7 +35,7 @@ jobs:
                https://api.github.com/rate_limit | jq ".rate.used"
           echo $GITHUB_WORKSPACE
       - name: "Run analysis"
-        uses: ossf/scorecard-action@3f0895b779fd3b235b859aafbbdd859c13196a57 # github.com/ossf/scorecard-action/pull/1509
+        uses: ossf/scorecard-action@8d9ed48d6dd13fc0c93bfa8bc00c6a6b637d0e03 # github.com/ossf/scorecard-action/pull/1509
         with:
           results_file: results.json
           results_format: json
