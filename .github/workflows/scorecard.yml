@@ -40,6 +40,8 @@ jobs:
           results_file: results.json
           results_format: json
           file_mode: git
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          internal_default_token: ${{ secrets.GITHUB_TOKEN }}
 
           # Public repositories:
           #   - Publish results to OpenSSF REST API for easy access by consumers
