@@ -50,7 +50,7 @@ jobs:
           # For private repositories:
           #   - `publish_results` will always be set to `false`, regardless
           #     of the value entered here.
-          publish_results: false
+          publish_results: true
 
       - run: |
           curl -L  -H "Accept: application/vnd.github+json" \
