@@ -52,6 +52,7 @@ jobs:
           #   - `publish_results` will always be set to `false`, regardless
           #     of the value entered here.
           publish_results: true
+          internal_publish_base_url: "https://api-staging.scorecard.dev"
 
       - run: |
           curl -L  -H "Accept: application/vnd.github+json" \
