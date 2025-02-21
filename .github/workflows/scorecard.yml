@@ -36,14 +36,11 @@ jobs:
       #          https://api.github.com/rate_limit | jq ".rate.used"
       #     echo $GITHUB_WORKSPACE
       - name: "Run analysis"
-        uses: docker://ghcr.io/ossf/scorecard-action:latest
+        uses: ossf/scorecard-action@v2.4.1
         with:
           results_file: results.json
           results_format: json
           file_mode: git
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          internal_default_token: ${{ secrets.GITHUB_TOKEN }}
-
           # Public repositories:
           #   - Publish results to OpenSSF REST API for easy access by consumers
           #   - Allows the repository to include the Scorecard badge.
@@ -52,7 +49,6 @@ jobs:
           #   - `publish_results` will always be set to `false`, regardless
           #     of the value entered here.
           publish_results: true
-          internal_publish_base_url: "https://api.scorecard.dev"
 
       # - run: |
       #     curl -L  -H "Accept: application/vnd.github+json" \
