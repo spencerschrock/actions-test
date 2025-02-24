@@ -16,31 +16,34 @@ jobs:
   analysis:
     name: Scorecard analysis
     runs-on: ubuntu-latest
+    # `publish_results: true` only works when run from the default branch. conditional can be removed if disabled.
+    if: github.event.repository.default_branch == github.ref_name || github.event_name == "pull_request"
     permissions:
       # Needed to upload the results to code-scanning dashboard.
       security-events: write
-      id-token: write # needed for keyless signing
+      # Needed to publish results and get a badge (see publish_results below).
+      id-token: write
       # Uncomment the permissions below if installing in a private repository.
       # contents: read
       # actions: read
 
     steps:
       - name: "Checkout code"
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
-      # - run: |
-      #     curl -L  -H "Accept: application/vnd.github+json" \
-      #          -H "Authorization: Bearer ${{ github.token }}" \
-      #          -H "X-GitHub-Api-Version: 2022-11-28" \
-      #          https://api.github.com/rate_limit | jq ".rate.used"
-      #     echo $GITHUB_WORKSPACE
+
       - name: "Run analysis"
-        uses: ossf/scorecard-action@v2.4.1
+        uses: ossf/scorecard-action@f49aabe0b5af0936a0987cfb85d86b75731b0186 # v2.4.1
         with:
-          results_file: results.json
-          results_format: json
-          file_mode: git
+          results_file: results.sarif
+          results_format: sarif
+          # (Optional) "write" PAT token. Uncomment the `repo_token` line below if:
+          # - you want to enable the Branch-Protection check on a *public* repository, or
+          # - you are installing Scorecard on a *private* repository
+          # To create the PAT, follow the steps in https://github.com/ossf/scorecard-action?tab=readme-ov-file#authentication-with-fine-grained-pat-optional.
+          # repo_token: ${{ secrets.SCORECARD_TOKEN }}
+
           # Public repositories:
           #   - Publish results to OpenSSF REST API for easy access by consumers
           #   - Allows the repository to include the Scorecard badge.
@@ -50,23 +53,22 @@ jobs:
           #     of the value entered here.
           publish_results: true
 
-      # - run: |
-      #     curl -L  -H "Accept: application/vnd.github+json" \
-      #          -H "Authorization: Bearer ${{ github.token }}" \
-      #          -H "X-GitHub-Api-Version: 2022-11-28" \
-      #          https://api.github.com/rate_limit | jq ".rate.used"
+          # (Optional) Uncomment file_mode if you have a .gitattributes with files marked export-ignore
+          # file_mode: git
+
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
       - name: "Upload artifact"
         uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
         with:
-          name: JSON file
-          path: results.json
+          name: SARIF file
+          path: results.sarif
           retention-days: 5
 
       # Upload the results to GitHub's code scanning dashboard (optional).
       # Commenting out will disable upload of results to your repo's Code Scanning dashboard
-      # - name: "Upload to code-scanning"
-      #   uses: github/codeql-action/upload-sarif@1b1aada464948af03b950897e5eb522f92603cc2 # v3.24.9
-      #   with:
-      #     sarif_file: results.sarif
+      - name: "Upload to code-scanning"
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results.sarif
+
