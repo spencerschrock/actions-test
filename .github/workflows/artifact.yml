@@ -1,0 +1,20 @@
+name: artifact upload
+on:
+  push:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  upload:
+    name: upload artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: set golangci-lint version # keep in sync with tools/go.mod
+        run: |
+          echo "some artifact" >> artifact.txt
+      - uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
+        with:
+          path: artifact.txt
+          retention-days: 5
