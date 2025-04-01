@@ -1,0 +1,42 @@
+name: Run end-to-end tests
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+    paths-ignore:
+      - '**/*.md'
+      - '*.md'
+  workflow_dispatch:
+
+permissions: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  generate-model:
+    runs-on: ubuntu-latest
+    steps:
+    - name: generate model
+      id: model
+      run: |
+        set -e
+        MODEL_ROOT=$(mktemp --directory)
+        echo "root=$MODEL_ROOT" >> "$GITHUB_OUTPUT"
+        for i in {0..1}; do
+            DIR="${MODEL_ROOT}/d${i}"
+            mkdir "$DIR"
+            for j in {0..2}; do
+                echo "This is file f${i}${j} in d${i}." > "${DIR}/f${i}${j}"
+            done
+        done
+        for i in {0..3}; do
+            echo "This is file f${i} in root." > "${MODEL_ROOT}/f${i}"
+        done
+    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      with:
+        path: ${{ steps.model.outputs.root }}
+        name: model.zip
+        if-no-files-found: error
+        retention-days: 1
