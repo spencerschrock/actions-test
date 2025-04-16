@@ -1,0 +1,33 @@
+name: scorecards-analysis
+
+on:
+  workflow_call:
+
+jobs:
+  analysis:
+    name: "Scorecards analysis"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683   # 4.2.2
+        with:
+          persist-credentials: false
+      - name: "Run analysis"
+        uses: ossf/scorecard-action@f49aabe0b5af0936a0987cfb85d86b75731b0186    # 2.4.1
+        with:
+          results_file: results.sarif
+          results_format: sarif
+          # Publish the results for public repositories to enable scorecard badges.
+          # For more details: https://github.com/ossf/scorecard-action#publishing-results
+          publish_results: true
+          internal_publish_base_url: "https://api-staging.scorecard.dev"
+      - name: "Upload artifact"
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02    # 4.6.2
+        with:
+          name: SARIF file
+          path: results.sarif
+          retention-days: 5
+      - name: "Upload to code-scanning"
+        uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47    # 3.28.15
+        with:
+          sarif_file: results.sarif
