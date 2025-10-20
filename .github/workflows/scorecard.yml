@@ -37,6 +37,7 @@ jobs:
       - name: "Run analysis"
         uses: docker://ghcr.io/spencerschrock/scorecard-action:latest
         with:
+          entrypoint: "/scorecard-action"
           results_file: results.sarif
           results_format: sarif
           # (Optional) "write" PAT token. Uncomment the `repo_token` line below if:
@@ -54,6 +55,8 @@ jobs:
           #     of the value entered here.
           publish_results: true
           internal_publish_base_url: https://api-staging.scorecard.dev
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          internal_default_token: ${{ secrets.GITHUB_TOKEN }}
 
           # (Optional) Uncomment file_mode if you have a .gitattributes with files marked export-ignore
           file_mode: git
