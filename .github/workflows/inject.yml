@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Log event and get pwned
-        run: echo '${{ tojson (github) }}' | jq
+        run: echo '${{ tojson (github . event) }}' | jq
