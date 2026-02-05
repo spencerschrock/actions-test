@@ -35,7 +35,7 @@ jobs:
           persist-credentials: false
 
       - name: "Run analysis"
-        uses: docker://ghcr.io/spencerschrock/scorecard-action:latest
+        uses: docker://ghcr.io/ossf/scorecard-action:latest
         with:
           entrypoint: "/scorecard-action"
           results_file: results.sarif
@@ -54,7 +54,7 @@ jobs:
           #   - `publish_results` will always be set to `false`, regardless
           #     of the value entered here.
           publish_results: true
-          internal_publish_base_url: https://api-staging.scorecard.dev
+          internal_publish_base_url: https://cdn.scorecard.dev
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           internal_default_token: ${{ secrets.GITHUB_TOKEN }}
 
