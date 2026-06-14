@@ -1,7 +1,5 @@
 on: push
 
-permissions: {}
-
 jobs:
   noperms:
     name: test checkout without contents
