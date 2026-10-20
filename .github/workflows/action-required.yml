@@ -1,0 +1,30 @@
+name: Action Required Check
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  checks: write
+
+jobs:
+  create-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create action_required check run
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Important: on pull_request events, github.sha is the merge commit.
+          # PR checks must be attached to the PR head SHA.
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          gh api \
+            --method POST \
+            /repos/${{ github.repository }}/check-runs \
+            -f name="manual-action-check" \
+            -f head_sha="$HEAD_SHA" \
+            -f status="completed" \
+            -f conclusion="action_required" \
+            -f details_url="https://github.com/${{ github.repository }}/pull/41" \
+            -f output[title]="Action Required" \
+            -f output[summary]="This check requires manual action before merging."
